@@ -14,9 +14,19 @@ def create_app():
     app.config.from_object('configuracion.DevConfig')
 
     # Configurar SQLAlchemy
-    db.init_app(app) #  ***************FALTÓ PASARLE LA APLICACIÓN (app)
+    db.init_app(app)
 
     # Registramos los Blueprints
+    from .routes.clienteRoutes import cliente
+    app.register_blueprint(cliente)
+
+    from .routes.categoriaRoutes import categoria
+    app.register_blueprint(categoria)
+
+    from .routes.productoRoutes import producto
+    app.register_blueprint(producto)
+
+
 
     return app
 
