@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from src.extensiones import db
 from src.models import Clientes
 
@@ -16,6 +16,23 @@ def consultar_clientes():
 
 
 # Definir la ruta CLIENTES
-@cliente.route('/api/nuevocliente', methods=['POST'])
+@cliente.route('/api/clientes/registrar', methods=['POST'])
 def insertar_cliente():
-   pass
+    # Leer los datos enviados
+    # Recibir datos desde un formulario request.form['nombre']
+    json_cliente = request.get_json()
+    for clave, valor in json_cliente.items():
+        print(clave, valor)
+
+    cliente = Clientes()
+    return cliente.registrar_cliente(json_cliente)
+
+@cliente.route('/api/clientes/login', methods=['POST'])
+def login_cliente():
+    json_cliente = request.get_json()
+    for clave, valor in json_cliente.items():
+        print(clave, valor)
+
+    cliente = Clientes()
+    return cliente.validar_cliente( json_cliente['correo'],json_cliente['clave'] )
+
